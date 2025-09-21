@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.typekit.net/lfp3llb.css">
+  <style>
+    :root {
+      --top-nav-h: 60px;
+      --bottom-nav-h: 62px;
+      --radius-lg: 25px;
+      --brand-grad: linear-gradient(135deg, #805700, #0066cc);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: url("background.png") no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+    }
+    /* Top nav */
+    .nav-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--brand-grad);
+      color: #fff;
+      padding: 10px 14px;
+      min-height: var(--top-nav-h);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+    .nav-title {
+      flex: 1;
+      text-align: center;
+      font-family: "leida", sans-serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .card {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 14px rgba(0,0,0,.18);
+    }
+    .card h2 {
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    .form-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    input[type="text"], select {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid #004080;
+    }
+    input[type="file"] {
+      border: none;
+      margin-top: 8px;
+    }
+    .nav-btn {
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      border: 0;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.2s ease;
+    }
+    .nav-btn:hover {
+      background: rgba(0,0,0,0.9);
+    }
+
+    /* Preview button centered */
+    .preview-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    /* Bottom nav */
+    .nav-bottom {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: var(--brand-grad);
+      min-height: var(--bottom-nav-h);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: 10px;
+      color: #fff;
+    }
+    .nav-bottom a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+    }
+
+    /* Builder page hidden initially */
+    #builderPage { display: none; }
+    .hero-choice {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .post-starter {
+      border: 2px dashed #004080;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-top">
+    <span></span>
+    <div class="nav-title">Create Page</div>
+    <span></span>
+  </div>
+
+  <main>
+    <!-- Creator Setup -->
+    <div id="setupPage">
+      <div class="card">
+        <h2>Write Name</h2>
+        <div class="form-row">
+          <input id="creatorName" type="text" placeholder="Enter your name">
+          <button class="nav-btn" onclick="saveName()">Save</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Select Theme</h2>
+        <select id="themeSelect">
+          <option>Polaroid 70s</option>
+          <option>90s Grunge</option>
+          <option>Sydney 2000 Fresh</option>
+          <option>Jazz Age Black & White</option>
+          <option>Kyoto Minimalist</option>
+        </select>
+        <p style="margin:10px 0 4px;">Choose your own:</p>
+        <input type="file" id="bgUpload" accept="image/*">
+        <p style="margin:10px 0 4px;">Choose Font:</p>
+        <select id="fontSelect">
+          <option>Orbitron</option>
+          <option>Delve Hand</option>
+          <option>Arial</option>
+          <option>Georgia</option>
+          <option>Courier New</option>
+        </select>
+      </div>
+
+      <!-- Only Preview button, centered -->
+      <div class="preview-container">
+        <button class="nav-btn" onclick="preview()">Preview</button>
+      </div>
+    </div>
+
+    <!-- Builder Page -->
+    <div id="builderPage">
+      <div class="card">
+        <h2>Select Hero Section</h2>
+        <div class="hero-choice">
+          <label><input type="radio" name="hero" value="carousel"> Carousel</label>
+          <label><input type="radio" name="hero" value="single"> Single Image</label>
+        </div>
+        <input type="file" id="heroUpload" accept="image/*" multiple>
+      </div>
+
+      <div class="post-starter" onclick="startPost()">
+        ➕ Start your first post
+      </div>
+
+      <div class="preview-container">
+        <button class="nav-btn" onclick="preview()">Preview</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="nav-bottom">
+    <a href="Creatorhomeindex.html">🏠 Home</a>
+    <a href="QRCODEIndex.html">➕ Invite</a>
+  </div>
+
+  <script>
+    function saveName() {
+      const name = document.getElementById("creatorName").value;
+      alert("Name saved: " + name);
+    }
+
+    function preview() {
+      // Navigate to the preview page
+      window.location.href = "Previewindex.html";
+    }
+
+    function startPost() {
+      alert("Starting your first post…");
+    }
+  </script>
+</body>
+</html>
